@@ -1,6 +1,6 @@
 name: 'Changelog Bot'
 description: 'Automatically generate and update CHANGELOG.md from merged Pull Requests with semantic versioning support'
-author: 'Your GitHub Username'
+author: 'rkneela0912'
 
 inputs:
   github_token:
