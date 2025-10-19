@@ -1,0 +1,41 @@
+name: 'Changelog Bot'
+description: 'Automatically generate and update CHANGELOG.md from merged Pull Requests with semantic versioning support'
+author: 'Your GitHub Username'
+
+inputs:
+  github_token:
+    description: 'GitHub token for API access (use secrets.GITHUB_TOKEN)'
+    required: true
+  changelog_path:
+    description: 'Path to the CHANGELOG.md file'
+    default: 'CHANGELOG.md'
+    required: false
+  version:
+    description: 'Version number for this release (e.g., 1.2.0). If not provided, will use "Unreleased"'
+    required: false
+  include_labels:
+    description: 'Comma-separated list of PR labels to include (e.g., "feature,bug,enhancement"). Leave empty to include all.'
+    required: false
+  exclude_labels:
+    description: 'Comma-separated list of PR labels to exclude (e.g., "skip-changelog,wip")'
+    default: 'skip-changelog'
+    required: false
+  categorize:
+    description: 'Automatically categorize changes by label (true/false)'
+    default: 'true'
+    required: false
+
+outputs:
+  updated:
+    description: 'Whether the changelog was updated (true/false)'
+  changes_count:
+    description: 'Number of changes added to the changelog'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'edit'
+  color: 'blue'
+

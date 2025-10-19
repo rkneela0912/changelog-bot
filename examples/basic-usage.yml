@@ -1,0 +1,33 @@
+name: Update Changelog
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Update Changelog
+        uses: YOUR_USERNAME/changelog-bot@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog_path: 'CHANGELOG.md'
+          categorize: 'true'
+          exclude_labels: 'skip-changelog,wip'
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add CHANGELOG.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "docs: update CHANGELOG.md [skip ci]" && git push)
+

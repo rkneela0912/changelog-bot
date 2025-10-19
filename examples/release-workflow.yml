@@ -1,0 +1,46 @@
+name: Create Release with Changelog
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+      - name: Update Changelog
+        uses: YOUR_USERNAME/changelog-bot@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog_path: 'CHANGELOG.md'
+          version: ${{ steps.get_version.outputs.VERSION }}
+          categorize: 'true'
+          exclude_labels: 'skip-changelog,wip,dependencies'
+      
+      - name: Commit changelog
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add CHANGELOG.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "docs: update CHANGELOG for v${{ steps.get_version.outputs.VERSION }}"
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
