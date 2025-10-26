@@ -180,3 +180,9 @@ Used by teams worldwide to automate changelog generation!
 
 Join our growing community of users! Star ⭐ this repo to show your support.
 
+
+## 🎯 Quick Tips
+
+- Use conventional commit prefixes for best results
+- Add labels to PRs for automatic categorization
+- Run manually with workflow_dispatch for testing
