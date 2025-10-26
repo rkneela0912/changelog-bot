@@ -186,3 +186,12 @@ Join our growing community of users! Star ⭐ this repo to show your support.
 - Use conventional commit prefixes for best results
 - Add labels to PRs for automatic categorization
 - Run manually with workflow_dispatch for testing
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+- 🐛 Report bugs
+- 💡 Suggest features
+- 🔧 Submit pull requests
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
